@@ -53,13 +53,26 @@ public class CharacterSelectController {
 
 		return mav;
 	}
-	@RequestMapping(value = "/result", method = RequestMethod.GET) // URLとのマッピング
-	public ModelAndView res(ModelAndView mav) {
+	@RequestMapping(value = "/result", params = "fight", method = RequestMethod.POST) // URLとのマッピング
+	public ModelAndView resfight(ModelAndView mav) {
 
 		Work work = (Work) session.getAttribute("workbox");
 		work.fight();
 		mav.addObject("workbox",work);
 		mav.setViewName("result");
+		mav.addObject("flg", "fight");
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/result", params = "recovery", method = RequestMethod.POST) // URLとのマッピング
+	public ModelAndView resrecovery(ModelAndView mav) {
+
+		Work work = (Work) session.getAttribute("workbox");
+		work.recovery();
+		mav.addObject("workbox",work);
+		mav.setViewName("result");
+		mav.addObject("flg", "recovery");
 
 		return mav;
 	}
