@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.systena.tigerscave.rpgapplication.application.model.Brave;
 import jp.co.systena.tigerscave.rpgapplication.application.model.Charaform;
+import jp.co.systena.tigerscave.rpgapplication.application.model.Monk;
 import jp.co.systena.tigerscave.rpgapplication.application.model.Witch;
 import jp.co.systena.tigerscave.rpgapplication.application.model.Work;
 
@@ -24,14 +25,14 @@ public class CharacterSelectController {
 	public ModelAndView sel(ModelAndView mav) {
 
 		mav.setViewName("character");
-		mav.addObject("ohage",new Charaform());
+		mav.addObject("charabox",new Charaform());
 
 		return mav;
 	}
 	@RequestMapping(value = "/Cmd", method = RequestMethod.POST) // URLとのマッピング
 	public ModelAndView cmd(ModelAndView mav,@ModelAttribute Charaform form) {
 
-		Work work = (Work) session.getAttribute("okabe");
+		Work work = (Work) session.getAttribute("workbox");
 
 		if(form.getWork().equals("戦士")) {
 
@@ -40,9 +41,12 @@ public class CharacterSelectController {
 
 		}else if(form.getWork().equals("魔法使い")){
 			work = new Witch();
-		}
-		work.setName(form.getName());
-		session.setAttribute("okabe", work);
+
+		}else if(form.getWork().equals("武闘家")){
+			work = new Monk();
+
+		}work.setName(form.getName());
+		session.setAttribute("workbox", work);
 
 		mav.setViewName("Cmd");
 		mav.addObject("cmdform",form);
@@ -52,9 +56,9 @@ public class CharacterSelectController {
 	@RequestMapping(value = "/result", method = RequestMethod.GET) // URLとのマッピング
 	public ModelAndView res(ModelAndView mav) {
 
-		Work work = (Work) session.getAttribute("okabe");
+		Work work = (Work) session.getAttribute("workbox");
 		work.fight();
-		mav.addObject("okabe",work);
+		mav.addObject("workbox",work);
 		mav.setViewName("result");
 
 		return mav;

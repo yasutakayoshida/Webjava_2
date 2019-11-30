@@ -1,11 +1,11 @@
 package jp.co.systena.tigerscave.rpgapplication.application.model;
 
-public class Witch extends Work{
+public class Monk extends Work{
 	private String attack;
 	@Override
 	public void fight() {
 		//自動生成されたメソッド・スタブ
-		attack=super.getName()+"はまほうで攻撃した！";
+		attack=super.getName()+"は拳で攻撃した！";
 
 	}
 	public String getAttack() {
